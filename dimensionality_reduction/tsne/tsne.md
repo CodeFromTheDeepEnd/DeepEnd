@@ -1,3 +1,5 @@
+# BLOG SCETCH
+
 T-sne is well-known dimensionality reduction algorithm particularly suited for the visualization of high-dimensional datasets. 
 
 T-SNE stands for t-Distributed Stochastic Neighbor Embedding and it is a non-linear method. T-SNE carries some basic properties that are worth mentioning:
