@@ -4,7 +4,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>233c0c9e-6ee6-4738-b11c-2618814d2a4d</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>DeepEnd.py</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,7 +23,6 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DeepEnd.py" />
     <Compile Include="dimensionality_reduction\tsne\tsne.py" />
   </ItemGroup>
   <ItemGroup>
