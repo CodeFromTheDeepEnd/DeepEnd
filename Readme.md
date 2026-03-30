@@ -11,8 +11,8 @@ Code examples are designed to be ran from the project root, for example:
 Snippets are usually short and self-contained. Larger pieces are on separate repositories.
 
 ## Linked content
-- [Dimension reduction with t-SNE](./dimension_reduction/tsne) - [Blog post](https://jani.isohanni.fi/dimension-reductions-t-sne/)
-- [Autoencoders](./deep_learning/autoencoder) - [Blog post](https://jani.isohanni.fi/autoencoders-the-foundation-of-generative-ai/)
-- [Variational Autoencoders](./deep_learning/vae) - [TBD](TBD)
+- [Dimension reduction with t-SNE](dimension_reduction/tsne) - [Blog post](https://jani.isohanni.fi/dimension-reductions-t-sne/)
+- [Autoencoders](deep_learning/autoencoder) - [Blog post](https://jani.isohanni.fi/autoencoders-the-foundation-of-generative-ai/)
+- [Variational Autoencoders](deep_learning/vae) - [TBD](TBD)
 
 You can read the full blog series here: [https://jani.isohanni.fi]
