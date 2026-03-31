@@ -6,6 +6,8 @@ from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
 import umap
 from deep_learning.vae.vae import VAE 
+import numpy as np
+from PIL import Image
 
 # Hyperparameters
 latent_dim = 4 
@@ -119,3 +121,65 @@ with torch.no_grad():
     axes[0, 0].set_ylabel('Original', size=12)
     axes[1, 0].set_ylabel('Reconstructed', size=12)
     plt.show()
+
+# Animation: 4 -> 9 -> 7
+model.eval()
+with torch.no_grad():
+    # Find example digits
+    digits_to_find = [4, 9, 7]
+    examples = {}
+    
+    for data, labels in train_loader:
+        for digit in digits_to_find:
+            if digit not in examples:
+                mask = labels == digit
+                if mask.any():
+                    idx = mask.nonzero()[0].item()
+                    examples[digit] = data[idx].to(device)
+        if len(examples) == 3:
+            break
+    
+    # Latent representation
+    z_4 = model.encode(examples[4].view(1, 784))[0]
+    z_9 = model.encode(examples[9].view(1, 784))[0]
+    z_7 = model.encode(examples[7].view(1, 784))[0]
+    
+    # Interpolation
+    steps = 30  # Frames per move
+    frames = []
+    
+    # 4 -> 9
+    for t in np.linspace(0, 1, steps):
+        z_interp = (1 - t) * z_4 + t * z_9
+        img = model.decode(z_interp).view(28, 28).cpu().numpy()
+        frames.append(img)
+    
+    # 9 -> 7
+    for t in np.linspace(0, 1, steps):
+        z_interp = (1 - t) * z_9 + t * z_7
+        img = model.decode(z_interp).view(28, 28).cpu().numpy()
+        frames.append(img)
+    
+    # Convert to PIL and save GIF
+    pil_frames = []
+    for frame in frames:
+        img_uint8 = (frame * 255).astype(np.uint8)
+        img = Image.fromarray(img_uint8, mode='L')
+        # scale up (28x28 -> 140x140)
+        img = img.resize((140, 140), Image.LANCZOS)  # NEAREST = pixels
+        pil_frames.append(img)
+
+    # Add frames backwards, exclude first and last
+    pil_frames_reverse = pil_frames[-2:0:-1]
+    all_frames = pil_frames + pil_frames_reverse
+
+    # Save  GIF
+    all_frames[0].save(
+        'vae_morph_4_9_7.gif',
+        save_all=True,
+        append_images=all_frames[1:],
+        duration=50,  # ms per frame
+        loop=0  # Loop
+    )
+    
+    print("GIF-animation saved: vae_morph_4_9_7.gif")
